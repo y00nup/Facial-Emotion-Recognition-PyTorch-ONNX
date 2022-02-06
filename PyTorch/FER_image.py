@@ -39,6 +39,9 @@ def FER_image(img_path):
             model.eval()
             log_ps = model.cpu()(X)
             ps = torch.exp(log_ps)
+            # Test metrics and results
+            for i in range(7):
+                print(f'{emotion_dict[i]}: {ps[0][i]}')
             top_p, top_class = ps.topk(1, dim=1)
             pred = emotion_dict[int(top_class.numpy())]
         cv2.putText(img, pred, (x, y), cv2.FONT_HERSHEY_SIMPLEX, 0.8, (0, 255, 0), 1)
