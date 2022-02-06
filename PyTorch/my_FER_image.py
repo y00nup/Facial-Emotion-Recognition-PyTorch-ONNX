@@ -75,6 +75,8 @@ def my_FER_image(img_path):
         model.eval()
         log_ps = model.cpu()(X)
         ps = torch.exp(log_ps)
+        for i in range(7):
+            print(f'{emotion_dict[i]}: {ps[0][i]}')
         top_p, top_class = ps.topk(1, dim=1)
         pred = emotion_dict[int(top_class.numpy())]
     print(pred)
